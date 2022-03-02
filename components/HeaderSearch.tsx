@@ -9,9 +9,9 @@ function HeaderSearch() {
     const searchInputRef = useRef(null);
     const search = (e: { preventDefault: () => void; }) => {
         e.preventDefault();
-        const term: any = searchInputRef.current.value;
-        if (!term) return;
-        router.push(`/search?term=${term}`)
+        const term: any = searchInputRef.current;
+        if (!term.value) return;
+        router.push(`/search?term=${term.value}`)
     }
     return (
         <header className='sticky top-0 bg-white'>
@@ -22,7 +22,10 @@ function HeaderSearch() {
                     className="cursor-pointer" onClick={() => router.push('/')} />
                 <form className='flex flex-grow px-6 py-3 ml-10 mr-5 border border-gray-200 rounded-full shadow-lg max-w-3xl items-center'>
                     <input className='flex-grow w-full focus:outline-none' ref={searchInputRef} type="text" />
-                    <XIcon className='h-7 sm:mr-3 text-gray-500 cursor-pointer transition duration-100 transform hover:scale-125' onClick={() => (searchInputRef.current.value = "")} />
+                    <XIcon className='h-7 sm:mr-3 text-gray-500 cursor-pointer transition duration-100 transform hover:scale-125' onClick={() => {
+                        const data: any = searchInputRef.current
+                        data.value = "";
+                    }} />
                     <MicrophoneIcon className='mr-3 h-6 hidden sm:inline-flex text-blue-500 border-l-2 pl-4 border-gray-300' />
                     <SearchIcon className='h-6 hidden sm:inline-flex text-blue-500' />
                     <button hidden onClick={search}>search</button>
